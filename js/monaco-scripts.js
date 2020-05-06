@@ -34,7 +34,7 @@ require(['vs/editor/editor.main'], function() {
         monacoEditors.forEach(editor => editor.dispose());
         monacoEditors = [];
     
-        event.currentSlide.querySelectorAll('.monaco-editor')
+        event.currentSlide.querySelectorAll('.monaco-widget')
             .forEach(initMonacoEditor);
     });
 });
