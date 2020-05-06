@@ -1,0 +1,57 @@
+.union {
+    /* height: 500px; */
+    padding: 60px 60px;
+    background-color: white;
+    border-radius: 50%;
+    color: #000000;
+    border-style: solid;
+    border-color: grey;
+    border-width: 3px;
+}
+
+.circle:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  /* opacity: 0.85; */
+  background-color: grey;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #60489D;
+}
+
+.circle > span {
+  float: left;
+  width: 100%;
+  padding: 20px;
+  padding-top: 50%;
+  line-height: 1em;
+  margin-top: -0.5em;
+  text-align: center;
+  color: white;
+}
+
+.blue-bg {
+  background-color: #3f51b5
+}
+
+.red-bg {
+  background-color: #f44336;
+}
+
+.circle-1 {
+  color: #ffffff;
+  
+}
+
+.secondary-color {
+  color: #fab84a;
+}
+
+.monaco-editor {
+  text-align: left;
+}

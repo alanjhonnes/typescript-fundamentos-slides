@@ -1,0 +1,687 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Fundamentos do TypeScript</title>
+
+  <link rel="stylesheet"
+        href="css/reset.css">
+  <link rel="stylesheet"
+        href="css/reveal.css">
+  <link rel="stylesheet"
+        href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet"
+        href="css/theme/mjv.css">
+  <link rel="stylesheet"
+        href="css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet"
+        href="lib/css/monokai.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>
+          Fundamentos de TypeScript<br>
+        </h2>
+      </section>
+      <section>
+        <h2>Sobre mim</h2>
+        <ul>
+          <li>Alan Jhonnes</li>
+          <li>Arquiteto de Software na MJV</li>
+          <li>4+ anos de experiência com Typescript</li>
+        </ul>
+      </section>
+      <section>
+        <h2>TypeScript</h2>
+        <ul>
+          <li class="fragment">
+            Linguagem - Javascript Superset - Adiciona sistema de tipos
+          </li>
+          <li class="fragment">
+            Compilador - Compila Typescript e Javascript para um dialeto ES de escolha - Altamente configurável
+          </li>
+          <li class="fragment">
+            Language server - Provê funcionalidades de IDE para diversos editores de texto
+          </li>
+        </ul>
+        <aside class="notes">
+          O que é o Typescript? O TypeScript pode ser separado em três partes diferentes.
+
+          Como linguagem, ele adiciona um sistema de tipagem para o Javascript, que é muito flexivel e vamos conferir
+          daqui a pouco.
+
+          Como compilador, ele compila typescript e javascript para uma versão especifica do ecmascript, por exemplo ES5
+          ou ES6.
+
+          Ele também serve como um servidor de linguagem que pode ser utilizado por editores de texto para prover
+          funcionalidades como auto-complete,
+          ir até definição, imports automáticos, etc. Essa é uma das razões que o typescript é facilmente integrado nos
+          editores de texto como VSCode, Atom, Sublime etc.
+        </aside>
+      </section>
+      <section>
+        <h2>Sistema de tipos</h2>
+        <ul>
+          <li class="fragment">Estruturado</li>
+          <li class="fragment">Developer Experience</li>
+          <li class="fragment">Documentável</li>
+          <li class="fragment">Flexível</li>
+        </ul>
+        <aside class="notes">
+          O sistema de tipos do Typescript é o nosso foco hoje, ele é um sistema de tipos estruturado, onde o que
+          importa são os formatos dos tipos.
+          Veremos exemplos disso mais a frente.
+
+          Usando o sistema de tipos do Typescript, conseguimos uma experiência melhor ao desenvolver, recebendo
+          informações de auto-complete,
+          podendo refatorar rapidamente e com segurança.
+
+          Utilizando o sistema de tipos nós estamos documentando o projeto, dando bastante intuitividade ao nosso
+          código.
+
+          Devido à natureza do Javascript, o sistema de tipos é extremamente flexível e consegue representar muito bem
+          diversos códigos complexos que vemos no Javascript.
+        </aside>
+      </section>
+      <section>
+        <h2>Tipos básicos e primitivos</h2>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="circle">
+            <span>string</span>
+          </div>
+          <div class="circle">
+            <span>number</span>
+          </div>
+          <div class="circle">
+            <span>boolean</span>
+          </div>
+          <div class="circle">
+            <span>object</span>
+          </div>
+          <div class="circle">
+            <span>function</span>
+          </div>
+          <div class="circle">
+            <span>array</span>
+          </div>
+        </div>
+        <div class="mt-5 fragment">
+          <h2 class="text-left">strictNullsChecks</h2>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="circle mx-2">
+              <span>null</span>
+            </div>
+            <div class="circle mx-2">
+              <span>undefined</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Os tipos básicos são bem simples, string, number, object para representar a base de um objeto, e também temos
+          'function' para representar as funções.
+          Como as funçoes no javascript são objetos de primeira classe, ou seja, você pode usar funções como valores e
+          armazenar em variáveis.
+
+          Há uma configuração do compilador que você pode ativar chamada strictNullsChecks que separa os tipos null e
+          undefined.
+          Essa é uma das configurações mais importantes e eu recomendo utilizar em todos os projetos
+          pois ela ajuda a prevenir diversos bugs relacionados à esses tipos null e undefined.
+          Esses tipos usados sozinhos não tem muita utilidade,
+          mas veremos como podemos usar esses tipos para tornar nosso código melhor.
+        </aside>
+      </section>
+      <section>
+        <h2>Tipos especiais</h2>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="circle">
+            <span>any</span>
+          </div>
+          <div class="circle">
+            <span>unknown</span>
+          </div>
+          <div class="circle">
+            <span>void</span>
+          </div>
+          <div class="circle">
+            <span>never</span>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Esses tipos servem para representar casos especiais.
+
+          O uso do any serve para basicamente desabilitar a checagem de tipos.
+          Geralmente é usado quando estamos iniciando e não sabemos direito como tipar alguma interface corretamente.
+          No fim dessa palestra, vocês verão que a grande maioria dos casos é facilmente tipável.
+
+          O tipo void é usado para representar uma função sem retorno, é equivalente a usar o undefined, mas de forma
+          mais semântica para indicar realmente que a função não retorna nada.
+
+          O tipo unknown é o inverso do any, serve para quando realmente você quer que o Typescript te force a fazer
+          rigorosas checagens antes de você acessar ou usar a variavél.
+
+          O tipo never representa um tipo que não deveria acontecer nunca. O exemplo mais simples é uma função que
+          sempre dá erro, nunca chegando a finalizar,
+          portanto o tipo da função não é nem void nem undefined e sim, never.
+        </aside>
+      </section>
+
+      <section>
+        <h2>
+          Definindo Tipos
+        </h2>
+
+        <div class="monaco-editor"
+             style="height: 500px;"
+             code="
+// Type Alias
+type Alias = { 
+  num: number;
+}
+
+// Interface
+interface Interface {
+    num: number;
+}
+
+// Classe
+class Classe {
+  num: number;
+}
+
+
+
+
+"></div>
+
+        <aside class="notes">
+          Para definirmos nossos próprios tipos, podemos usar três diferentes métodos.
+
+          O primeiro método é usando Type Aliases, usando a palavra chave "type" seguida do nome ou 'alias' que você
+          quer dar para aquele tipo.
+
+          O segundo método é usando uma interface, que é bem parecido com Type Alias com diferenças bem sutis.
+          É recomendado usar interfaces no desenvolvimento de bibliotecas, pois essas interfaces podem depois ser
+          alteradas nas aplicações.
+
+          Por fim temos as classes,
+          porém temos que tomar cuidado,
+          porque as classes servem tanto para o javascript quanto para representar um tipo no sistema de tipos do
+          Typescript.
+          Não recomendo usar classes a não ser que você realmente vá adicionar métodos na classe, pois quando compilado
+          ela gera código javascript,
+          enquanto que type alias e interfaces não geram código javascript após compilado.
+        </aside>
+
+      </section>
+
+      <section>
+        <h2>
+          Sistema de tipos estrutural
+        </h2>
+
+        <div class="monaco-editor"
+             style="height: 500px;"
+             code="
+type Alias = { num: number; }
+
+interface Interface { num: number; }
+
+class Classe { num: number; }
+
+function aliased(arg: Alias): Alias {
+  return arg;
+};
+function interfaced(arg: Interface): Interface {
+  return arg;
+};
+
+function classed(arg: Classe): Classe {
+  return arg;
+};
+
+
+
+"></div>
+
+        <aside class="notes">
+          Como falei anteriormente, o sistema de tipos do Typescript é estrutural, ou seja, o que importa é se um tipo é
+          compatível com o outro em relação à forma.
+
+          Aqui temos os mesmos três tipos de antes, e três funções diferentes que aceitam cada um dos tipos,
+          mas eu posso passar qualquer tipo desses para qualquer uma dessas funções e ele será aceito como válido.
+        </aside>
+
+      </section>
+
+      <section>
+        <h2>
+          Typescript é o seu Javascript com tipos
+        </h2>
+        <div class="monaco-editor"
+             style="height: 400px;"
+             code="
+function createUser(name)  {
+  return {
+    name: name,
+  };
+}
+
+
+
+        ">
+        </div>
+        <aside class="notes">
+          Lembre-se, o Typescript é o seu Javascript com tipos.
+
+          Partindo de um código normal javascript, vamos facilmente adicionar os tipos respectivos para esse trecho de
+          código.
+
+          Vejo que muitas pessoas que acabam entrando pro Typescript acabam achando que você precisa começar a
+          trabalhar com Classes e passam a criar classes para representar os tipos, talvez porque tenham entrado no
+          Typescript pelo Angular
+          onde o uso Orientado a objetos é incentivado, porém não é necessário mudar a forma como você programa
+          javascript para usar o Typescript.
+        </aside>
+      </section>
+
+      <section>
+        <section>
+          <h2>Pensando em Conjuntos</h2>
+          <div class="monaco-editor fragment"
+               style="height: 200px;"
+               code="
+type Named = {
+  name: string;
+}
+
+type Countable = {
+  count: number;
+}
+          "></div>
+
+          <img src="img/named-countable.png"
+               class="fragment">
+
+          <aside class="notes">
+            Para trabalhar de forma eficiente com Typescript, você tem que pensar em conjuntos e como seus tipos se
+            encaixam neles.
+
+            Vamos pegar dois tipos simples, Named, que seria qualquer objeto que tenha a propriedade name com tipo
+            string,
+            e Countable, que seria qualquer objeto que tenha a propriedade count com tipo number.
+
+            E se nós precisarmos de um tipo com as propriedades name e count ao mesmo tempo?
+
+            A principio podemos simplesmente criar um tipo novo e replicar as propriedades uma a uma, mas isso não é
+            muito eficaz, e se o nosso tipo named fosse modificado?
+            Teriamos que alterar o outro tipo também.
+
+            Se considerarmos que Tipos são conjuntos de dados, podemos então criar um novo tipo a partir desses dois
+            tipos de dados.
+          </aside>
+        </section>
+        <section>
+          <h2>Pensando em Conjuntos</h2>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <img src="img/namedcountable.png"
+                     class="fragment">
+              </div>
+              <div class="col-6">
+                <div class="monaco-editor fragment"
+                     style="height: 400px;"
+                     code="
+type Named = { 
+  name: string;
+}
+
+type Countable = { 
+  count: number;
+}
+
+type NamedCountable = 
+  Named & Countable;
+
+
+
+
+">
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Pensando em Conjuntos</h2>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6">
+                <img src="img/named-or-countable.png"
+                     class="fragment">
+              </div>
+              <div class="col-6">
+                <div class="monaco-editor fragment"
+                     style="height: 400px;"
+                     code="
+type Named = { 
+  name: string;
+}
+
+type Countable = { 
+  count: number; 
+}
+
+type NamedOrCountable = 
+  Named | Countable;
+
+">
+                </div>
+              </div>
+            </div>
+          </div>
+          <aside class="notes">
+
+          </aside>
+        </section>
+
+        <section>
+          <h2>Pensando em Conjuntos</h2>
+
+          <div class="monaco-editor"
+               style="height: 500px;"
+               code="
+type Bool = true | false;
+
+type BinaryNumber = 0 | 1;
+
+type UserTypes = 'normal' | 'moderator' | 'admin';
+
+type MaybeString = string | null;
+          "></div>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Modificadores</h2>
+        <ul>
+          <li>Readonly</li>
+          <li>Optional</li>
+        </ul>
+        <div class="monaco-editor"
+             style="height: 300px;"
+             code="
+type User = {
+  readonly id?: string;
+  name: string;
+}
+
+">
+          <aside class="notes">
+            Os modificadores servem para alterar propriedades de objetos. O modificador readonly é muito útil quando
+            queremos utilizar o conceito de imutabilidade nos nossos projetos.
+
+            O modificador optional serve para indicar que uma propriedade pode ou não estar presente em um objeto.
+            Ela é bem similar ao usar o tipo undefined.
+          </aside>
+      </section>
+
+      <section>
+        <h2>Derivando tipos</h2>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-5">
+              <ul>
+                <li class="fragment">Generics</li>
+                <li class="fragment">Funções para tipos</li>
+                <li class="fragment">Parâmetros de tipos</li>
+              </ul>
+            </div>
+            <div class="col-7">
+              <div class="monaco-editor fragment"
+                   style="height: 500px;"
+                   code="
+type TrackedEntity&lt;T = any&gt; = {
+  id: string;
+  data: T;
+}
+
+type TrackedString = TrackedEntity&lt;string&gt;;
+
+const entity: TrackedString = {
+  id: '123',
+  data: 'data',
+}
+
+type Pair&lt;N, M&gt; = [N, M];
+
+const pair = (n, m) => [n, m];
+
+
+
+
+"></div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <aside class="notes">
+          Para dar mais flexibilidade aos nossos tipos, é importante poder criar um novo tipo a partir de um tipo já
+          existente.
+
+          Para isso temos a funcionalidade de generics, que permite definir tipos que funcionam como funções que lhe
+          retornam um novo tipo.
+
+          Aqui temos um exemplo de tipo que aceita um parâmetro de tipo T para definir qual o tipo da propriedade data.
+          O = any significa o valor padrão caso não seja informado.
+
+          Embaixo temos outro exemplo para mostrar que generics realmente são como funções operando a nível de tipos.
+          Vejam o tipo pair, que aceita dois parâmetros N e M, e retorna uma tupla com o primeiro indice sendo do tipo N
+          e o segundo do tipo M.
+
+          Logo abaixo temos uma arrow function que faz a mesma coisa, mas a nível de valores e não de tipos.
+
+          Podemos tipar essa função pair agora corretamente.
+        </aside>
+      </section>
+
+      <section>
+        <h2>Criando tipos indexados</h2>
+        <div class="monaco-editor"
+             style="height: 500px;"
+             code="
+type User = {
+  id: string;
+  name: string;
+}
+
+type UserByIds = {
+  [id: string]: User;
+}
+
+const usersByIds: UserByIds = {
+
+};
+
+
+
+        "></div>
+
+        <aside class="notes">
+          No javascript é muito comum criarmos objetos que funcionam como um hashmap para armazenar outros dados e no
+          typescript
+          podemos representar isso de forma bem natural, aqui temos um tipo User que será nosso dado e o tipo UserByIds
+          para representar nosso hashmap.
+
+          Com essa sintaxe, podemos definir que temos propriedades do tipo string nos objetos de tipo UserByIds, e que
+          elas tem o valor de User.
+
+          Para mais segurança, podemos adicionar o tipo undefined no valor para garantir que seja verificado se o
+          usuário de id acessado realmente existe.
+        </aside>
+      </section>
+
+      <section>
+        <h2>Iterando em propriedades</h2>
+
+        <div class="monaco-editor"
+             style="height: 500px;"
+             code="
+type User = {
+  id: string;
+  name: string;
+}
+
+type PickProperties&lt;T, K extends keyof T&gt; = {
+  [P in K]: T[P];
+};
+
+
+type UserWithName = PickProperties&lt;User, 'name'&gt;;
+
+const simpleUser: UserWithName = {
+  name: 'Alan Jhonnes'
+}
+
+
+        "></div>
+
+
+        <aside class="notes">
+          Para podermos derivar tipos mais complexos, podemos também iterar em propriedades de tipos existentes com o
+          operador 'keyof', e usa-las para gerar outros tipos.
+
+          Aqui temos o tipo User novamente, e temos um tipo genérico com dois parâmetros, T que pode ser qualquer tipo,
+          e K, que nesse caso possui uma restrição, que deve ser uma ou mais propriedades do tipo T.
+
+          Dentro do tipo, é definida mais uma variável de tipo chamada P, usando o operador in nas propriedades K
+          iteramos em cada uma das propriedades,
+          e cada uma delas é calculada buscando a respectiva propriedade P no tipo T.
+
+          Podemos também adicionar ou remover modificadores ao iterarmos nas propriedades, com +- ou readonly.
+        </aside>
+      </section>
+
+      <section>
+        <h2>Análise de tipos por fluxo</h2>
+        <div class="monaco-editor" style="height: 600px;" code="
+type NormalUser = {
+  role: 'normal',
+  name: string;
+}
+type AdminUser = {
+  role: 'admin',
+  name: string;
+  permissions: string[];
+}
+type User = NormalUser | AdminUser | null;
+
+function hasPermission(user: User, permission: string): boolean {
+  if(!user) {
+    return false;
+  }
+  if(user.role === 'normal') {
+    return false;
+  }
+  return user.permissions.some(item => item === permission);
+}
+
+
+        
+        ">
+
+        </div>
+      </section>
+
+      <section>
+        <h2>Tipos Condicionais</h2>
+        <div class="monaco-editor"
+             style="height: 500px;"
+             code="
+type IsNumber&lt;T&gt; = T extends number ? true : false;
+
+type CheckNumber = IsNumber&lt;'abc'&gt;;
+
+
+type PromiseValue&lt;T&gt; = T extends Promise&lt;infer V&gt; ? V : never;
+
+type TestPromise = Promise&lt;string&gt;;
+
+type Value = PromiseValue&lt;TestPromise&gt;;
+
+
+
+
+"></div>
+
+        <aside class="notes">
+          Tipos condicionais se parecem com um if ternário.
+        </aside>
+      </section>
+
+      <section>
+        <h2>
+          Combinando conceitos
+        </h2>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-6">
+              <img src="img/mind-blown.gif" style="width: 100%;">
+            </div>
+            <div class="col-6">
+              <ul>
+                <li>Tipos Literais</li>
+                <li>Unions</li>
+                <li>Generics</li>
+                <li>Combinações</li>
+                <li>Analise de tipos por fluxo</li>
+                <li>Tipos condicionais</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h1>Perguntas</h1>
+      </section>
+      <section>
+        <h1>Obrigado!</h1>
+      </section>
+    </div>
+  </div>
+
+
+  <script src="js/reveal.js"></script>
+
+  <script src="lib/monaco-editor/min/vs/loader.js"></script>
+  <script>
+
+  </script>
+
+  <script src="js/monaco-scripts.js"></script>
+</body>
+
+</html>
