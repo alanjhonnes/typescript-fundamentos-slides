@@ -1,5 +1,6 @@
 
 [Link vídeo](https://drive.google.com/file/d/1W-niSZyby9cWsGh6-ODAt1OP6VWg95Tx/view?usp=sharing)
+
 [Link apresentação](https://alanjhonnes.github.io/typescript-fundamentos-slides/)
 
 
